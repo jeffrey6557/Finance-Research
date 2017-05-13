@@ -50,7 +50,7 @@ With the above technical indicators, and 3 types of (lagged intraday/overnight/d
 ### Ensemble Forecasting Method
 We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 1000 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision. The prediction pipeline can be summarized as follows:
 
-<center><img src="pipeline.png" align="middle" style="width: 400px;"/></center>
+<center><img src="pipeline.png" align="middle" style="width: 1000px;"/></center>
 
 
 ## Experimental Results
@@ -147,4 +147,48 @@ methods, the computational cost and risks of over-fitting are high; and
 could focus on engineering the appropriate features in addition to
 tuning the model.
 
+
+### References
+
+A. N. Burgess. *Modelling relationships between international equity
+markets using computational intelligence*, Knowledge-Based Intelligent
+Electronic Systems, 1998. Proceedings KES ’98. 1998 Second International
+Conference on, Adelaide, SA, 1998, pp. 13-22 vol.3. doi:
+10.1109/KES.1998.725946
+
+Andrew W. Lo, A. Craig MacKinlay. *When Are Contrarian Profits Due to
+Stock Market Overreaction?*. Rev Financ Stud 1990; 3 (2): 175-205. doi:
+10.1093/rfs/3.2.175
+
+Hao Chen, Keli Xiao, Jinwen Sun, and Song Wu. 2017. *A Double-Layer
+Neural Network Framework for High-Frequency Forecasting*. ACM Trans.
+Manage. Inf. Syst. 7, 4, Article 11 (January 2017), 17 pages. DOI:
+https://doi.org/10.1145/3021380
+
+Hargreaves, Carol; Yi Hao. *Prediction of Stock Performance Using
+Analytical Techniques*. Journal of Emerging Technologies in Web
+Intelligence. May 2013, Vol. 5 Issue 2, p136-142. 7p.
+
+Leung, Tim and Kang, Jamie Juhee. *Asynchronous ADRs: Overnight vs
+Intraday Returns and Trading Strategies* (October 23, 2016). Studies in
+Economics & Finance, 2016, Forthcoming. Available at SSRN:
+https://ssrn.com/abstract=2858048
+
+Qiu M, Song Y. *Predicting the Direction of Stock Market Index Movement
+Using an Optimized Artificial Neural Network Model*. PLoS ONE 11(5):
+e0155133 (2016). https://doi.org/10.1371/journal.pone.0155133
+
+Selmi, N., Chaabene, S & Hachicha, N. *Forecasting returns on a stock
+market using Artificial Neural Networks and GARCH family models:
+Evidence of stock market S & P 500*.Decision Science Letters, 4(2),
+203-210 (2015).
+
+Y. Yetis, H. Kaplan and M. Jamshidi. *Stock market prediction by using
+artificial neural network*. 2014 World Automation Congress (WAC),
+Waikoloa, HI, 2014, pp. 718-722. doi: 10.1109/WAC.2014.6936118
+
+Yanshan Wang. 2014. *Stock price direction prediction by directly using
+prices data: an empirical study on the KOSPI and HSI*. Int. J. Bus.
+Intell. Data Min. 9, 2 (October 2014), 145-160.
+DOI=http://dx.doi.org/10.1504/IJBIDM.2014.065091
 
