@@ -20,13 +20,13 @@ We break daily returns of a region or country into intraday and overnight return
 
 ### Feature Engineering 
 The following momentum indicators are selected from the literature [nikkei, chen] that are reported to have the more predictive power than other technical indicators. They are all based on price and volume information at or before time t:
--     Exponential and Simple Moving Averages over k-period rolling window
--     Past k-period volatility
--     AD: number of advancing stocks at time t minus that of declining stocks
--     ADV: volume of advancing stocks at time t minus that of declining stocks
--     Past k-period change in price
--     Past k-period log return
--     Past k-period stochastic oscillator %K and stochastic oscillator % D
+- Exponential and Simple Moving Averages over k-period rolling window
+- Past k-period volatility
+- AD: number of advancing stocks at time t minus that of declining stocks
+- ADV: volume of advancing stocks at time t minus that of declining stocks
+- Past k-period change in price
+- Past k-period log return
+- Past k-period stochastic oscillator %K and stochastic oscillator % D
 - Larry William's R
 - Disparity
 - Day of week
@@ -54,7 +54,7 @@ We break the time series into multiple rolling windows of training-validation-te
 
 
 ## Experimental Results
-We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown in Figures \ref{plot1}, \ref{plot2}, \ref{plot3}, and \ref{plot4}. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction $100 \cdot (1-p)\%$. 
+We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown as follows. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction. 
 
 
 <center><img src="intraday_final1.png" align="middle" style="width: 400px;"/></center>
@@ -142,7 +142,7 @@ regarding application of neural networks to financial time series: 1)
 much of the nuisance the neural net learns (better than a simple linear
 model) in financial time series can be just noise, which is random or
 inherently unpredictable. 2) to fine-tuning an ensemble to beat linear
-methods, the computational cost and risks of over-fitting are high; and
+methods, the computational cost and risks of over-fitting are high; and 
 3) to improve the overall performance, no matter what method to use, one
 could focus on engineering the appropriate features in addition to
 tuning the model.
