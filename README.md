@@ -14,13 +14,19 @@ A body of literature in financial economics suggests that international equity m
 
 Previous studies primarily focus on the dynamics among selected major country indices such as the US, UK, Germany, and China, while ignoring the dynamics with other countries in the same region or across regions. In this study, we seek to investigate the price predictability of the international equity indices by looking at regional indices as well as major country indices that cover the world equity markets according to the MSCI world classification. We use large, liquid iShares Exchange-Traded-Funds (ETF) and SPDR S&P 500 ETF data downloaded from Yahoo! Finance. 
 
+## Methodology
+### Problem Statement
 
-## Problem Statement
-We break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zones and hence formulate the following problem:
+It is a common issue that spurious cross-autocorrelation can be a result of thinly traded markets, asynchronous trading, or both. To minimize these impacts, we have used large, liquid iShares Exchange-Traded-Funds (ETF) trade data for international equity indices downloaded from Yahoo! Finance. Most of the international ETFs track the MSCI equity regional or country indices and trade in the US market hours. For the US market, we use SPDR S\&P 500 ETF data downloaded from Yahoo! Finance. The coverage of ETFs is similar to the MSCI world equity index classification, except that we have both major country indices and the regional indices excluding countries (which usually make up a substantial percentage of the regional index capitalization), in order to better separate the effect of the two. The comprehensive coverage also represents three major market time zones: Asia and Pacific, Europe, and America time zones.
 
-<center><img src="image/problem.png" align="middle" style="width: 400px;"/></center>
+Further, we break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zones and hence formulate the following problem:
 
-## Feature Engineering 
+<center><img src="image/problem.png" align="middle" style="width: 700px;"/></center>
+
+
+
+
+### Feature Engineering 
 The following momentum indicators are selected from the literature [nikkei, chen] that are reported to have the more predictive power than other technical indicators. They are all based on price and volume information at or before time t:
 - Exponential and Simple Moving Averages over k-period rolling window
 - Past k-period volatility
@@ -34,11 +40,11 @@ The following momentum indicators are selected from the literature [nikkei, chen
 - Day of week
 The parameter k is selected by the author within a range of 5 days for all indicators. For exponential moving averages, k = 1,2,3...,10,15,20,25. 
 
-## Feature Selection
+### Feature Selection
 With the above technical indicators, and 3 types of (lagged intraday/overnight/daily) cross-sectional returns, plus the last available price of the target region, we have more than 60 input features with much redundant information. From practice, it adds noise that the neural network confuses with signals so that the results are not satisfactory. We use 1000 Random Forest Regressors with Mean Square Error as the criterion for selecting the top 20 optimal features in the total in-sample period (i.e. the samples that model is allowed to see in during training and validation). 
 
 
-## Neural Network Architecture
+### Neural Network Architecture
 - A 2-layer fully-connected network: 20 input units - 24 hidden units - 3 hidden units - 1 output unit
 - Mean Square Loss function
 - ADAM optimizer 
@@ -49,26 +55,26 @@ With the above technical indicators, and 3 types of (lagged intraday/overnight/d
 
 
 
-## Ensemble Forecasting Method
+### Ensemble Forecasting Method
 We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 1000 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision. The prediction pipeline can be summarized as follows:
 
-<center><img src="image/pipeline.png" align="middle" style="width: 1000px;"/></center>
+<center><img src="image/pipeline.png" align="middle" style="width: 500px;"/></center>
 
 
-## Evaluation Metrics
-<center><img src="image/evaluation.png" align="middle" style="width: 1000px;"/></center>
+### Evaluation Metrics
+<center><img src="image/metrics.png" align="middle" style="width: 500px;"/></center>
 
 ## Experimental Results
 We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown as follows. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction. 
 
 
-<center><img src="image/intraday_final1.png" align="middle" style="width: 400px;"/></center>
+<center><img src="image/intraday_final1.png" align="middle" style="width: 300px;"/></center>
 
-<center><img src="image/intraday_final2.png" align="middle" style="width: 400px;"/></center>
+<center><img src="image/intraday_final2.png" align="middle" style="width: 300px;"/></center>
 
-<center><img src="image/overnight_final1.png" align="middle" style="width: 400px;"/></center>
+<center><img src="image/overnight_final1.png" align="middle" style="width: 300px;"/></center>
 
-<center><img src="image/overnight_final2.png" align="middle" style="width: 400px;"/></center>
+<center><img src="image/overnight_final2.png" align="middle" style="width: 300px;"/></center>
 
 
 We can make several observations:
