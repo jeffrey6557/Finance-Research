@@ -1,55 +1,54 @@
-# Finance-Research
-
----
-    International Stock Market Prediction using Artificial Neural Networks\
-    AC 299r Independent Study 
----
-
-## Motivation
-
-A body of literature in financial economics suggests that international equity markets can have cross-market momentum, where one market in a region correlates with another market in that region (or possibly in a different region) in a lagged manner. Profitable trading strategies are devised to exploit the predictability of future prices using cross market momentum. 
-
-Previous studies primarily focus on the dynamics among selected major country indices such as the US, UK, Germany, and China, while ignoring the dynamics with other countries in the same region or across regions. In this study, we seek to investigate the price predictability of the international equity indices by looking at regional indices as well as major country indices that cover the world equity markets according to the MSCI world classification. We use large, liquid iShares Exchange-Traded-Funds (ETF) and SPDR S&P 500 ETF data downloaded from Yahoo! Finance.
-
-## Problem Statement
-
- we break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zone.
 
 
-Given the past cross-sectional price information of equity indices, our goal is to predict the next-day overnight or intraday return of one index:
+#    International Stock Market Prediction using Artificial Neural Networks
+##    AC 299r Independent Study 
+#### Chang Liu 
+#### Supervisor: Neil Shephard
 
-$$ \hat R_{overnight, t+1} = f ( R_{intraday,t}, C_{t} , \text{Technical indicators}_{t}) $$
- 
-$$ \hat R_{intraday,t+1} =f( R_{overnight, t+1}  , O_{ t+1}  ,\text{Technical indicators}_{t})$$
+
+### Motivation
+
+A body of literature in financial economics suggests that international equity markets can have cross-market momentum, where one market in a region correlates with another market in that region (or possibly in a different region) in a lagged manner. Profitable trading strategies are devised to exploit the predictability of future prices using cross market momentum. With the promising predictive power of neural networks in many successful applications including finance time series prediction, we are motivated to apply neural networks with powerful learning capacity to predict international stock market. 
+
+Previous studies primarily focus on the dynamics among selected major country indices such as the US, UK, Germany, and China, while ignoring the dynamics with other countries in the same region or across regions. In this study, we seek to investigate the price predictability of the international equity indices by looking at regional indices as well as major country indices that cover the world equity markets according to the MSCI world classification. We use large, liquid iShares Exchange-Traded-Funds (ETF) and SPDR S&P 500 ETF data downloaded from Yahoo! Finance. 
+
+
+### Problem Statement
+We break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zones and hence formulate the following problem:
 
 <center><img src="problem.png" align="middle" style="width: 400px;"/></center>
 
-\noindent where $R_t$ denotes cross-sectional intraday or overnight returns of day $t$; $O_t,C_t$ denotes the cross-sectional last available open or close price of day $t$. On any day $t$, overnight returns come first, then come intraday and daily returns. Technical indicators of day $t$ are calculated based on last available close price of the index we are predicting (see the feature engineering section). $f$ is a model that generates a prediction given the inputs. 
-
-## Feature Engineering 
+### Feature Engineering 
 The following momentum indicators are selected from the literature [nikkei, chen] that are reported to have the more predictive power than other technical indicators. They are all based on price and volume information at or before time t:
-1.     Exponential and Simple Moving Averages over k-period rolling window
-2.     Past k-period volatility
-3.     Cross-sectional Price Trend indicators 
-AD: number of advancing stocks at time t minus that of declining stocks
-ADV: volume of advancing stocks at time t minus that of declining stocks
-4.     Past k-period change in price
-5.     Past k-period log return
-6.    Past k-period stochastic oscillator %K and stochastic oscillator % D
+-     Exponential and Simple Moving Averages over k-period rolling window
+-     Past k-period volatility
+-     AD: number of advancing stocks at time t minus that of declining stocks
+-     ADV: volume of advancing stocks at time t minus that of declining stocks
+-     Past k-period change in price
+-     Past k-period log return
+-     Past k-period stochastic oscillator %K and stochastic oscillator % D
+- Larry William's R
+- Disparity
+- Day of week
 The parameter k is selected by the author within a range of 5 days for all indicators. For exponential moving averages, k = 1,2,3...,10,15,20,25. 
 
+### Feature Selection
+With the above technical indicators, and 3 types of (lagged intraday/overnight/daily) cross-sectional returns, plus the last available price of the target region, we have more than 60 input features with much redundant information. From practice, it adds noise that the neural network confuses with signals so that the results are not satisfactory. We use 1000 Random Forest Regressors with Mean Square Error as the criterion for selecting the top 20 optimal features in the total in-sample period (i.e. the samples that model is allowed to see in during training and validation). 
 
-## Neural Network Architecture
-A 2-layer fully-connected network: 20 input units - 24 hidden units - 3 hidden units - 1 output unit
-Mean Square Loss function
-ADAM optimizer 
-ReLu activation for all nodes except linear activation for output node
-L2 penalty; max norm constraints of weights; dropout layers
-Monitor training process – early stopping if validation not improving
 
-Ensemble Forecasting Method
-We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 100 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision.
+### Neural Network Architecture
+- A 2-layer fully-connected network: 20 input units - 24 hidden units - 3 hidden units - 1 output unit
+- Mean Square Loss function
+- ADAM optimizer 
+- ReLu activation for all nodes except linear activation for output node
+- L2 penalty; max norm constraints of weights; dropout layers
+- Monitor training process – early stopping if validation not improving
+- Normalize inputs by z-score transformation
 
+
+
+### Ensemble Forecasting Method
+We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 1000 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision. The prediction pipeline can be summarized as follows:
 
 <center><img src="pipeline.png" align="middle" style="width: 400px;"/></center>
 
@@ -118,7 +117,7 @@ We can make several observations:
     features.
 
 ## Concluding Remarks
-==================
+
 
 In this study, we propose to predict the intraday and overnight returns
 of international equity indices that cover most of the world equity
