@@ -21,7 +21,7 @@ It is a common issue that spurious cross-autocorrelation can be a result of thin
 
 Further, we break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zones and hence formulate the following problem:
 
-<center><img src="image/problem.png" align="middle" style="width: 700px;"/></center>
+<center><img src="image/problem.png" align="middle" style="width: 1000px;"/></center>
 
 
 
@@ -58,11 +58,16 @@ With the above technical indicators, and 3 types of (lagged intraday/overnight/d
 ### Ensemble Forecasting Method
 We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 1000 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision. The prediction pipeline can be summarized as follows:
 
-<center><img src="image/pipeline.png" align="middle" style="width: 500px;"/></center>
+<center><img src="image/pipeline.png" align="middle" style="width: 300px;"/></center>
 
 
 ### Evaluation Metrics
-<center><img src="image/metrics.png" align="middle" style="width: 500px;"/></center>
+To measure how close our predictions are to the true returns, we use directional accuracy, the percentage of times of our predictions are in the same direction (i.e., positive or negative returns) as the true returns. This metric is only used to measure the validation accuracy for model selection of the ensemble neural net. As for the final prediction, we want to measure its ability to predict large values and the model performance as a trading strategy. For an incorrect prediction in terms of direction, a loss is incurred; otherwise, a profit is gained. Thus we use a new accuracy metric according to Chen et al (2017) on the test set.
+<center><img src="image/acc.png" align="middle" style="width: 1000px;"/></center>
+
+To evaluate the risk-reward ratio for our trading models, Sharpe ratio is commonly used a standard and calculate Sharpe ratio based on the adjusted returns for our models accordingly:
+
+<center><img src="image/sharpe.png" align="middle" style="width: 1000px;"/></center>
 
 ## Experimental Results
 We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown as follows. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction. 
