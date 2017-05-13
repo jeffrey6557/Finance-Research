@@ -2,8 +2,10 @@
 
 #    International Stock Market Prediction using Artificial Neural Networks
 ##    AC 299r Independent Study 
-#### Chang Liu 
-#### Supervisor: Neil Shephard
+
+### Chang Liu 
+### Supervisor: Neil Shephard
+
 
 
 ### Motivation
