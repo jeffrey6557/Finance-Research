@@ -58,7 +58,7 @@ With the above technical indicators, and 3 types of (lagged intraday/overnight/d
 ### Ensemble Forecasting Method
 We break the time series into multiple rolling windows of training-validation-test sets. For each window, we train 1000 neural networks on the training set and choose the top 50% models by accuracy rates on the validation set. They form a committee and output an average prediction as the final decision. The prediction pipeline can be summarized as follows:
 
-<center><img src="image/pipeline.png" align="middle" style="width: 300px;"/></center>
+<center><img src="image/pipeline.png" align="middle" style="width: 500px;"/></center>
 
 
 ### Evaluation Metrics
@@ -73,13 +73,13 @@ To evaluate the risk-reward ratio for our trading models, Sharpe ratio is common
 We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown as follows. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction. 
 
 
-<center><img src="image/intraday_final1.png" align="middle" style="width: 300px;"/></center>
+<center><img src="image/intraday_final1.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/intraday_final2.png" align="middle" style="width: 300px;"/></center>
+<center><img src="image/intraday_final2.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/overnight_final1.png" align="middle" style="width: 300px;"/></center>
+<center><img src="image/overnight_final1.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/overnight_final2.png" align="middle" style="width: 300px;"/></center>
+<center><img src="image/overnight_final2.png" align="middle" style="width: 600px;"/></center>
 
 
 We can make several observations:
