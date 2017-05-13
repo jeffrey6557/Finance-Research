@@ -21,7 +21,7 @@ It is a common issue that spurious cross-autocorrelation can be a result of thin
 
 Further, we break daily returns of a region or country into intraday and overnight returns that are driven by fundamentally different drivers, depending on the overlapping time zones and hence formulate the following problem:
 
-<center><img src="image/problem.png" align="middle" style="width: 1200px;"/></center>
+<center><img src="image/problem.png" align="middle" style="width: 1000px;"/></center>
 
 
 
@@ -63,23 +63,23 @@ We break the time series into multiple rolling windows of training-validation-te
 
 ### Evaluation Metrics
 To measure how close our predictions are to the true returns, we use directional accuracy, the percentage of times of our predictions are in the same direction (i.e., positive or negative returns) as the true returns. This metric is only used to measure the validation accuracy for model selection of the ensemble neural net. As for the final prediction, we want to measure its ability to predict large values and the model performance as a trading strategy. For an incorrect prediction in terms of direction, a loss is incurred; otherwise, a profit is gained. Thus we use a new accuracy metric according to Chen et al (2017) on the test set.
-<center><img src="image/acc.png" align="middle" style="width: 1200px;"/></center>
+<center><img src="image/acc.png" align="middle" style="width: 1000px;"/></center>
 
 To evaluate the risk-reward ratio for our trading models, Sharpe ratio is commonly used a standard and calculate Sharpe ratio based on the adjusted returns for our models accordingly:
 
-<center><img src="image/sharpe.png" align="middle" style="width: 1200px;"/></center>
+<center><img src="image/sharpe.png" align="middle" style="width: 1000px;"/></center>
 
 ## Experimental Results
 We test our models from 2015-09-08 to 2017-04-07 over 400 market days for Asia ex Japan which fewer data, and from 2015-02-05 to 2017-04-07 over 800 market days for all other regions. Results are shown as follows. For comparison, a baseline is calculated as the fraction of positive returns in the test set, which does not vary with the proportion of transaction. 
 
 
-<center><img src="image/intraday_final1.png" align="middle" style="width: 800px;"/></center>
+<center><img src="image/intraday_final1.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/intraday_final2.png" align="middle" style="width: 800px;"/></center>
+<center><img src="image/intraday_final2.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/overnight_final1.png" align="middle" style="width: 800px;"/></center>
+<center><img src="image/overnight_final1.png" align="middle" style="width: 600px;"/></center>
 
-<center><img src="image/overnight_final2.png" align="middle" style="width: 800px;"/></center>
+<center><img src="image/overnight_final2.png" align="middle" style="width: 600px;"/></center>
 
 
 We can make several observations:
