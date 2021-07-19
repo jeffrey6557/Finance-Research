@@ -38,6 +38,7 @@ The following momentum indicators are selected from the literature that are repo
 - Larry William's R%
 - Disparity
 - Day of week
+
 The parameter k is selected by the author within a range of 5 days for all indicators. For exponential moving averages, k = 1,2,3...,10,15,20,25. 
 
 ### Feature Selection
